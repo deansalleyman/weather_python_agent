@@ -258,7 +258,7 @@ class GradioUI:
             "",
         )
 
-    def launch(self, **kwargs):
+    def build(self):
         import gradio as gr
 
         with gr.Blocks(fill_height=True) as demo:
@@ -290,6 +290,10 @@ class GradioUI:
                 [stored_messages, text_input],
             ).then(self.interact_with_agent, [stored_messages, chatbot], [chatbot])
 
+        return demo
+
+    def launch(self, **kwargs):
+        demo = self.build()
         demo.launch(debug=True, share=True, **kwargs)
 
 
